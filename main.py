@@ -4,8 +4,6 @@ from discord.ext import commands, tasks
 from discord import app_commands
 import google.generativeai as genai
 from bot_functions import handle_watch_command, handle_watchlist_command, get_insult, get_random_gif, fetch_popular_movies, help
-from pagination import Pagination
-import db_fetch
 
 # Constants
 GOOGLE_API_KEY = 'gemini_api'
