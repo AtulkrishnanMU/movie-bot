@@ -9,11 +9,6 @@ from bot_functions import handle_watch_command, handle_watchlist_command, get_in
 GOOGLE_API_KEY = 'gemini_api'
 PREFIX = "!!"
 
-# Global Variables
-history = [""]
-gemini_movie = ""
-reply_list = ["<<custom gif when user insults the bot>>"]
-
 # Discord setup
 intents = discord.Intents.default()
 intents.message_content = True
@@ -39,22 +34,12 @@ async def on_message(msg):
         try:
             content = msg.content.replace(f"<@{client.user.id}>", "").strip()
             model = genai.GenerativeModel('gemini-pro')
-            offens = model.generate_content(f'A said to B: "{content}". Is A using bad language towards B?').text.lower()
-            response_type = random.choice(["gif", "insult"])
-
-            if "yes" in offens:
-                reply = get_insult() if response_type == "insult" else await get_random_gif(random.choice(reply_list))
-            else:
-                greet_check = model.generate_content(f'Is this message a greeting: "{content}"').text.lower()
-                response_text = (
-                    model.generate_content(content).text if "yes" in greet_check else 
-                    model.generate_content(f'{content}. Reply in not more than 20 words.').text
+            
+            response_text = (
+                    model.generate_content(content).text 
                 )
-
-                filtered_resp = '.'.join([sent for sent in response_text.split('.') if 'n 20 words' not in sent]).strip() + '.'
-                reply = filtered_resp[:2000] if len(filtered_resp) > 2000 else filtered_resp
-
-            await msg.reply(reply if reply else await get_random_gif(content))
+            
+            await msg.reply(response_text)
         except:
             await msg.reply(await get_random_gif(content))
     
