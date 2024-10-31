@@ -12,7 +12,7 @@ PREFIX = "!!"
 # Global Variables
 history = [""]
 gemini_movie = ""
-reply_list = ["ip address", "my honest reaction", "ur mom", "shut up", "kill yourself", "dimden", "your mother", "touch grass", "Get some bitches", "womp womp cry about it", "sad meme", "i have feelings", "die", "depressed"]
+reply_list = ["<<custom gif when user insults the bot>>"]
 
 # Discord setup
 intents = discord.Intents.default()
